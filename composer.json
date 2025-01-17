@@ -1,0 +1,24 @@
+{
+    "name": "imedge/node-provided-libs",
+    "description": "Placeholder for libraries provided by IMEdege Node",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Gelf",
+            "email": "thomas@gelf.net"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "imedge/node": "^0.9"
+    },
+    "scripts": {
+        "refresh-provided-libs": "bin/refresh-provided-libs"
+    }
+}

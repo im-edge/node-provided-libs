@@ -1,0 +1,61 @@
+#!/usr/bin/env php
+<?php
+
+error_reporting(E_ALL|E_STRICT);
+$baseDir = dirname(__DIR__);
+
+$composerFile = "$baseDir/composer.json";
+$composer = json_decode(file_get_contents($composerFile));
+if (! $composer) {
+    $error = json_last_error_msg();
+    die("Failed to parse '$composerFile': $error\n");
+}
+
+$provided = [];
+
+function run($cmd): string
+{
+    echo "$cmd\n";
+    $output = null;
+    $retCode = null;
+    exec($cmd, $output, $retCode);
+    if ($retCode !== 0) {
+        die("$cmd failed with exit code $retCode: $output\n");
+    }
+
+    return implode("\n", $output);
+}
+
+function collectDependencies($dir, $name)
+{
+    $provided = [];
+    if (! is_file("$dir/composer.json")) {
+        die("There is no '$dir/composer.json'\n");
+    }
+    if (! is_file("$dir/composer.lock")) {
+        die("There is no '$dir/composer.lock'\n");
+    }
+    $json = run("composer info --format json --working-dir=$dir");
+    $info = json_decode($json);
+    if (! is_object($info) || ! isset($info->installed)) {
+        die("Failed to check installed dependencies for '$name' in '$dir'\n");
+    }
+    foreach ($info->installed as $pkg) {
+        // replace: dev-master a620bcf
+        $provided[$pkg->name] = preg_replace('/\s.+/', '', $pkg->version);
+    }
+
+    return $provided;
+}
+
+foreach (collectDependencies(dirname(__DIR__), 'imedge/node') as $pkg => $version) {
+    if (isset($provided[$pkg]) && $version !== $provided[$pkg]) {
+        printf("Replacing '%s' %s with %s\n", $pkg, $provided[$pkg], $version);
+    }
+    $provided[$pkg] = $version;
+}
+
+ksort($provided);
+$composer->replace = $provided;
+$flags = JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
+file_put_contents($composerFile, json_encode($composer, $flags) . "\n");
