@@ -16,7 +16,7 @@
         "php": ">=8.1"
     },
     "require-dev": {
-        "imedge/node": "^0.10"
+        "imedge/node": "^0.11"
     },
     "scripts": {
         "refresh-provided-libs": "bin/refresh-provided-libs"
