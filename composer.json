@@ -16,7 +16,7 @@
         "php": ">=8.1"
     },
     "require-dev": {
-        "imedge/node": "^0.11"
+        "imedge/node": "^0.12"
     },
     "scripts": {
         "refresh-provided-libs": "bin/refresh-provided-libs"
@@ -35,7 +35,6 @@
         "amphp/process": "v2.0.3",
         "amphp/redis": "v2.0.3",
         "amphp/serialization": "v1.0.0",
-        "amphp/socket": "v2.3.1",
         "amphp/sql": "v2.0.1",
         "amphp/sql-common": "v2.0.2",
         "amphp/sync": "v2.3.0",
@@ -43,6 +42,7 @@
         "daverandom/libdns": "v2.1.0",
         "evenement/evenement": "v3.0.2",
         "gipfl/linux-health": "v0.2.0",
+        "imedge/amphp-socket": "v2.3.1",
         "imedge/async": "v0.2.0",
         "imedge/certificate-store": "v0.1.0",
         "imedge/cli-screen": "v0.2.0",
@@ -56,10 +56,10 @@
         "imedge/jsonrpc": "v0.7.0",
         "imedge/log": "v0.7.1",
         "imedge/metrics": "v0.5.0",
-        "imedge/node": "v0.11.0",
+        "imedge/node": "v0.12.0",
         "imedge/process-runner": "v0.3.0",
         "imedge/protocol-netstring": "v0.4.0",
-        "imedge/protocol-ntp": "v0.1.0",
+        "imedge/protocol-ntp": "v0.2.0",
         "imedge/redis-runner": "v0.2.0",
         "imedge/redis-tables": "v0.10.0",
         "imedge/redis-utils": "v0.2.1",
